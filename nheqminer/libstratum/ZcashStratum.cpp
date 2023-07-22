@@ -774,7 +774,7 @@ ZcashJob* ZcashMiner::parseJob(const Array& params)
     // TODO: On a LE host shouldn't this be le32toh?
     ret->header.nVersion = be32toh(version);
 
-    if (ret->header.nVersion == 4) {
+    {
         if (params.size() < 8) {
             throw std::logic_error("Invalid job params");
         }
@@ -800,8 +800,6 @@ ZcashJob* ZcashMiner::parseJob(const Array& params)
 
         ret->time = params[5].get_str();
         ret->clean = params[7].get_bool();
-    } else {
-        throw std::logic_error("ZcashMiner::parseJob(): Invalid or unsupported block header version");
     }
 
     ret->header.nNonce = nonce1;
